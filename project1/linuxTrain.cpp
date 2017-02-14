@@ -19,7 +19,7 @@ int serial_port;
 void serial_port_close(int);
 struct termios options_original;
 static const char *PORT_NAME = "/dev/ttyS3";
-
+int helpme(void);
 
 void serial_port_close(int fd){
         close(fd);
@@ -226,8 +226,8 @@ class CommandFactory {
         if ( type == "haul2" ) return new Haul2Command();
         if ( type == "letoff" ) return new LetoffsoundCommand();
         if ( type == "stop" ) return new stopCommand();
-        if ( type == "accelarate" ) return new accelerateCommand();
-        if ( type == "decelarate" ) return new decelerateCommand();
+        if ( type == "accelerate" ) return new accelerateCommand();
+        if ( type == "decelerate" ) return new decelerateCommand();
         if ( type == "direction" ) return new directionCommand();
         if ( type == "start" ) return new initCommand();
 
@@ -245,13 +245,38 @@ void parseCommand(int argv,char *args[]){
                 val=atoi(args[2]);
         Command* cmd = CommandFactory::Create(command);
         cout<<"command is "<<command<<endl;
-        cmd->action(val);
+        cmd->action(val);                
+}
+
+int helpme(void){
+		
+
+cout<<"	Train CommandLine Control Instructions:															\n"
+	"																									\n"
+	"	command parameter																				\n"
+	"																									\n"
+	"	parameter																						\n"
+	"	ring	 			:	ring the bell															\n"
+	"	move n				:	train will move at specified speed n, for example, command move 4		\n"
+	"	haul1				:	haul type1																\n"
+	"	haul2				:	haul type2																\n"
+	"	letoff				:	turn off the ring or bell												\n"
+	"	stop				:	stop the tain immediately												\n"
+	"	accelerate n		:	accelerate train  by  n													\n"
+	"	decelerate n		:	decelerate train  by -n													\n"
+	"	start				: 	init the train by haul1													\n"<<endl;
+	
+	
 }
 
 
 int main( int argc, char *argv[] ) {
 
-
+		if(argc==1){
+			helpme();
+			return 0;
+		}
+			
 
         serial_port_open();
         //

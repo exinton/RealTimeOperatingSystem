@@ -26,6 +26,7 @@ int serial_port_write(char *write_buffer);
 HANDLE serial_port;
 int serial_port_close(void);
 void parseCommand(int argv,char *args[]);
+int helpme(void);
 
 
 int serial_port_close(void){
@@ -306,10 +307,35 @@ void parseCommand(int argv,char *args[]){
 	cmd->action(val);
 }
 
+int helpme(void){
+		
+
+cout<<"	Train CommandLine Control Instructions:															\n"
+	"																									\n"
+	"	command parameter																				\n"
+	"																									\n"
+	"	parameter																						\n"
+	"	ring	 			:	ring the bell															\n"
+	"	move n				:	train will move at specified speed n, for example, command move 4		\n"
+	"	haul1				:	haul type1																\n"
+	"	haul2				:	haul type2																\n"
+	"	letoff				:	turn off the ring or bell												\n"
+	"	stop				:	stop the tain immediately												\n"
+	"	accelerate n		:	accelerate train  by  n													\n"
+	"	decelerate n		:	decelerate train  by -n													\n"
+	"	start				: 	init the train by haul1													\n"<<endl;
+	
+	
+}
+
 
 int main( int argc, char *argv[] ) {
 
-
+	if(argc==1){
+		helpme();
+		return 0;
+	}
+		
 
 	serial_port_open();
 	//
